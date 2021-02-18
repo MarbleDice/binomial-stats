@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html lang="en-us" xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Binomial Distribution Stats</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<form th:action="@{/}" th:object="${statsForm}" method="post">
+	<table class="form">
+		<caption>Binomial distribution parameters</caption>
+		<tr>
+			<th scope="col">Number of trials (N)</th>
+			<th scope="col">Number of successes (x)</th>
+			<th scope="col">Probability of success (p)</th>
+		</tr>
+		<tr>
+			<td><input type="text" name="n" th:field="*{n}" /></td>
+			<td><input type="text" name="x" th:field="*{x}" /></td>
+			<td><input type="text" name="p" th:field="*{p}" /></td>
+		</tr>
+		<tr>
+			<td colspan="3">
+				<button name="search">Submit</button>
+			</td>
+		</tr>
+	</table>
+</form>
+<table th:if="${statsForm.hasConfidence()}">
+	<caption>Confidence Intervals on p</caption>
+	<tr>
+		<th scope="col">Algorithm</th>
+		<th scope="col">99 LB</th>
+		<th scope="col">95 LB</th>
+		<th scope="col">Mean</th>
+		<th scope="col">95 UB</th>
+		<th scope="col">99 UB</th>
+	</tr>
+	<tr th:each="interval : ${statsForm.intervals}">
+		<td th:text="${interval.algorithmName}">Algorithm</td>
+		<td th:text="${interval.getLowerBound(0)}">99 LB</td>
+		<td th:text="${interval.getLowerBound(1)}">95 LB</td>
+		<td th:text="${interval.mean}">Mean</td>
+		<td th:text="${interval.getUpperBound(1)}">95 UB</td>
+		<td th:text="${interval.getUpperBound(0)}">99 UB</td>
+	</tr>
+</table>
+
+<table th:if="${statsForm.hasDistribution()}">
+	<caption>Distribution of x</caption>
+	<tr>
+		<th scope="col">Mean</th>
+		<th scope="col">Var</th>
+	</tr>
+	<tr>
+		<td th:text="${statsForm.distribution.numericalMean}">Mean</td>
+		<td th:text="${statsForm.distribution.numericalVariance}">Var</td>
+	</tr>
+</table>
+
+<table th:if="${statsForm.hasNegativeDistribution()}">
+	<caption>Distribution of n</caption>
+	<tr>
+		<th scope="col">Mean</th>
+		<th scope="col">Var</th>
+	</tr>
+	<tr>
+		<td th:text="${statsForm.negativeDistribution.numericalMean}">Mean</td>
+		<td th:text="${statsForm.negativeDistribution.numericalVariance}">Var</td>
+	</tr>
+</table>
+
+</body>
+</html>
