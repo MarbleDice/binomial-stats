@@ -14,6 +14,7 @@ public class StatsController {
 	private static final Logger log = LoggerFactory.getLogger(StatsController.class);
 
 	public static final String VIEW = "stats";
+	public static final String MODEL_STATS = "stats";
 	public static final String MODEL_CONFIDENCE = "ci";
 	public static final String MODEL_NBINOMIAL = "neg";
 	public static final String MODEL_BINOMIAL = "bin";
@@ -27,6 +28,7 @@ public class StatsController {
 	@PostMapping("/")
 	public String post(StatsForm statsForm, Model model) {
 		log.info("n {} x {} p {}", statsForm.getN(), statsForm.getX(), statsForm.getP());
+		model.addAttribute(MODEL_STATS, statsForm.getStats());
 		return VIEW;
 	}
 }

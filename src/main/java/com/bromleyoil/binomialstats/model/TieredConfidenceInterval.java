@@ -37,47 +37,27 @@ public class TieredConfidenceInterval {
 		return confidenceLevels.get(confidenceLevels.size() - i - 1);
 	}
 
-	public double getLowerBound(int i) {
-		return lowerBounds.get(i);
+	public Probability getLowerBound(int i) {
+		return new Probability(lowerBounds.get(i));
 	}
 
-	public double getUpperBound(int i) {
-		return upperBounds.get(upperBounds.size() - i - 1);
+	public Probability getUpperBound(int i) {
+		return new Probability(upperBounds.get(upperBounds.size() - i - 1));
 	}
 
-	public void setAlgorithmName(String algorithmName) {
-		this.algorithmName = algorithmName;
-	}
-
-	public double getMean() {
-		return mean;
-	}
-
-	public void setMean(double mean) {
-		this.mean = mean;
+	public Probability getMean() {
+		return new Probability(mean);
 	}
 
 	public List<Double> getConfidenceLevels() {
 		return confidenceLevels;
 	}
 
-	public void setConfidenceLevels(List<Double> confidenceLevels) {
-		this.confidenceLevels = confidenceLevels;
-	}
-
 	public List<Double> getLowerBounds() {
 		return lowerBounds;
 	}
 
-	public void setLowerBounds(List<Double> lowerBounds) {
-		this.lowerBounds = lowerBounds;
-	}
-
 	public List<Double> getUpperBounds() {
 		return upperBounds;
-	}
-
-	public void setUpperBounds(List<Double> upperBounds) {
-		this.upperBounds = upperBounds;
 	}
 }

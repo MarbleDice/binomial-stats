@@ -1,0 +1,53 @@
+table.data {
+	border: 1px solid black;
+	border-collapse: collapse;
+	margin: 20px 0;
+}
+
+table.data td, th {
+	text-align: center;
+	padding: 2px 8px;
+}
+
+table.data tr:nth-child(odd) td,
+table.data tr:nth-child(odd) th {
+	background-color:#ddd;
+}
+
+table.data caption {
+	background-color:#aaa;
+	border: 1px solid black;
+	border-bottom: 0;
+	font-weight: bolder;
+	padding: 2px 0;
+}
+
+table.form {
+	background-color:#ddd;
+	border: 1px solid black;
+	border-top: 0;
+}
+
+table.form th {
+	font-weight: normal;
+}
+
+table.form button {
+	background-color: #aaa;
+	border: 1px solid black;
+	padding: 2px 8px;
+}
+
+table.form button:hover {
+	background-color: #ccf;
+	border-color: #339;
+	color: #339;
+	cursor: pointer;
+}
+
+table.form caption {
+	background-color:#ddd;
+	border: 1px solid black;
+	border-bottom: 0;
+	font-weight: bolder;
+}

@@ -1,15 +1,26 @@
 <!DOCTYPE HTML>
 <html lang="en-us" xmlns:th="http://www.thymeleaf.org">
-<head> 
-    <title>Binomial Distribution Stats</title> 
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<head>
+	<title>Binomial Distribution Stats</title> 
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="javascript/binomial-dist.js"></script>
+	<link rel="stylesheet" type="text/css" th:href="@{/default.css}" />
 </head>
 <body>
+<div style="background-color:#aaa;">
+	<canvas id="binomial-dist" height="200" width="200"></canvas>
+	<p id="p-x">-</p>
+	<p id="p-y">-</p>
+</div>
 <form th:action="@{/}" th:object="${statsForm}" method="post">
 	<table class="form">
 		<caption>Binomial distribution parameters</caption>
 		<tr>
-			<th scope="col">Number of trials (N)</th>
+			<td colspan="3"><p>Enter any 2 or all 3 parameters.</p></td>
+		</tr>
+		<tr>
+			<th scope="col">Number of trials (n)</th>
 			<th scope="col">Number of successes (x)</th>
 			<th scope="col">Probability of success (p)</th>
 		</tr>
@@ -25,15 +36,44 @@
 		</tr>
 	</table>
 </form>
-<table th:if="${statsForm.hasConfidence()}">
-	<caption>Confidence Intervals on p</caption>
+
+<table class="data" th:if="${statsForm.hasDistribution()}">
+	<caption th:text="${'Number of successes for ' + statsForm.n + ' trials with p=' + statsForm.p}">Number of successes</caption>
+	<tr>
+		<th scope="row">Mean (μ)</th>
+		<td th:text="${stats.mean + ' successes'}">0</td>
+	</tr>
+	<tr>
+		<th scope="row">Std Deviation (σ)</th>
+		<td th:text="${stats.stdDev + ' successes'}">0</td>
+	</tr>
+	<tr>
+		<th scope="row">95% confidence</th>
+		<td th:text="${stats.getRange(stats.TWO_SIGMA) + ' successes'}">3 - 5 successes</td>
+	</tr>
+	<tr>
+		<th scope="row">99% confidence</th>
+		<td th:text="${stats.getRange(stats.THREE_SIGMA) + ' successes'}">3 - 5 successes</td>
+	</tr>
+	<tr th:if="${statsForm.hasStats()}">
+		<th scope="row" th:text="${'P(X ≤ ' + statsForm.x + ')'}">P(X ≤ x)</th>
+		<td th:text="${stats.getPLteX(statsForm.x)}">0</td>
+	</tr>
+	<tr th:if="${statsForm.hasStats()}">
+		<th scope="row" th:text="${'P(X ≥ ' + statsForm.x + ')'}">P(X ≥ x)</th>
+		<td th:text="${stats.getPGteX(statsForm.x)}">0</td>
+	</tr>
+</table>
+
+<table class="data" th:if="${statsForm.hasConfidence()}">
+	<caption th:text="${'Confidence intervals on p for ' + statsForm.n + ' trials with ' + statsForm.x + ' successes'}">Confidence intervals on p</caption>
 	<tr>
 		<th scope="col">Algorithm</th>
-		<th scope="col">99 LB</th>
-		<th scope="col">95 LB</th>
+		<th scope="col">99% LB</th>
+		<th scope="col">95% LB</th>
 		<th scope="col">Mean</th>
-		<th scope="col">95 UB</th>
-		<th scope="col">99 UB</th>
+		<th scope="col">95% UB</th>
+		<th scope="col">99% UB</th>
 	</tr>
 	<tr th:each="interval : ${statsForm.intervals}">
 		<td th:text="${interval.algorithmName}">Algorithm</td>
@@ -45,19 +85,7 @@
 	</tr>
 </table>
 
-<table th:if="${statsForm.hasDistribution()}">
-	<caption>Distribution of x</caption>
-	<tr>
-		<th scope="col">Mean</th>
-		<th scope="col">Var</th>
-	</tr>
-	<tr>
-		<td th:text="${statsForm.distribution.numericalMean}">Mean</td>
-		<td th:text="${statsForm.distribution.numericalVariance}">Var</td>
-	</tr>
-</table>
-
-<table th:if="${statsForm.hasNegativeDistribution()}">
+<table class="data" th:if="${statsForm.hasNegativeDistribution()}">
 	<caption>Distribution of n</caption>
 	<tr>
 		<th scope="col">Mean</th>

@@ -35,7 +35,11 @@ public class StatsForm {
 	}
 
 	public boolean hasNegativeDistribution() {
-		return x != null && p != null;
+		return x != null && x > 0 && p != null;
+	}
+
+	public boolean hasStats() {
+		return n != null && x != null && p != null;
 	}
 
 	public List<TieredConfidenceInterval> getIntervals() {
@@ -62,6 +66,10 @@ public class StatsForm {
 
 	public PascalDistribution getNegativeDistribution() {
 		return new PascalDistribution(x, p);
+	}
+
+	public BinomialStats getStats() {
+		return hasDistribution() ? new BinomialStats(getDistribution()) : null;
 	}
 
 	public Integer getN() {
