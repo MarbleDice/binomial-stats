@@ -60,16 +60,12 @@ public class StatsForm {
 		return tieredIntervals;
 	}
 
-	public BinomialDistribution getDistribution() {
-		return new BinomialDistribution(n, p);
-	}
-
-	public PascalDistribution getNegativeDistribution() {
-		return new PascalDistribution(x, p);
-	}
-
 	public BinomialStats getStats() {
-		return hasDistribution() ? new BinomialStats(getDistribution()) : null;
+		return hasDistribution() ? new BinomialStats(new BinomialDistribution(n, p)) : null;
+	}
+
+	public PascalStats getNegativeStats() {
+		return hasNegativeDistribution() ? new PascalStats(new PascalDistribution(x, p)) : null;
 	}
 
 	public Integer getN() {

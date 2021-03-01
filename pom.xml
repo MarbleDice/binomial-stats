@@ -15,7 +15,7 @@
 	<description>Statistics on binomial distributions.</description>
 
 	<properties>
-		<property name="java.version">1.11</property>
+		<java.version>1.15</java.version>
 	</properties>
 
 	<dependencies>
