@@ -1,11 +1,6 @@
 package com.bromleyoil.binomialstats.model;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 public class Probability {
-	private static final Logger log = LoggerFactory.getLogger(Probability.class);
-
 	private double p;
 	private String prefix = "";
 
@@ -39,11 +34,10 @@ public class Probability {
 	}
 
 	public String getOdds() {
-		long odds = (long) (1f / p);
-		log.info("Odds {} {}", p, odds);
+		long odds = (long) (1d / p);
 		return odds > 1000000000
 				? String.format("%s1 in %.1e", prefix, 1d / p)
-				: String.format("%s1 in %,d", prefix, (long) (1d / p));
+				: String.format("%s1 in %,d", prefix, odds);
 	}
 
 	public String getProbability() {

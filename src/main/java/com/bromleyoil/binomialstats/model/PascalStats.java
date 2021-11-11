@@ -23,16 +23,17 @@ public class PascalStats {
 	}
 
 	public Range getRange(double confidence) {
-		confidence = Math.min(1, confidence);
-		int x1 = (int) Math.floor(dist.getNumericalMean());
-		int x2 = (int) Math.ceil(dist.getNumericalMean());
-		for (int x = 0; true; x++) {
-			// Distribution uses an exclusive lower bound
-			if (dist.cumulativeProbability(Math.max(-1, x1 - x - 1), x2 + x) >= confidence) {
-				// Add the successes
-				return new Range(Math.max(0, x1 - x) + dist.getNumberOfSuccesses(),
-						x2 + x + dist.getNumberOfSuccesses());
-			}
-		}
+		return StatUtil.findConfidence(dist, confidence);
+//		confidence = Math.min(1, confidence);
+//		int x1 = (int) Math.floor(dist.getNumericalMean());
+//		int x2 = (int) Math.ceil(dist.getNumericalMean());
+//		for (int x = 0; true; x++) {
+//			// Distribution uses an exclusive lower bound
+//			if (dist.cumulativeProbability(Math.max(-1, x1 - x - 1), x2 + x) >= confidence) {
+//				// Add the successes
+//				return new Range(Math.max(0, x1 - x) + dist.getNumberOfSuccesses(),
+//						x2 + x + dist.getNumberOfSuccesses());
+//			}
+//		}
 	}
 }

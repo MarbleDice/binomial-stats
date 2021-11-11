@@ -77,11 +77,11 @@
 	</tr>
 	<tr th:each="interval : ${statsForm.intervals}">
 		<td th:text="${interval.algorithmName}">Algorithm</td>
-		<td th:text="${interval.getLowerBound(0)}">99 LB</td>
-		<td th:text="${interval.getLowerBound(1)}">95 LB</td>
+		<td th:text="${interval.getLowerBound(0).percent}">99 LB</td>
+		<td th:text="${interval.getLowerBound(1).percent}">95 LB</td>
 		<td th:text="${interval.mean}">Mean</td>
-		<td th:text="${interval.getUpperBound(1)}">95 UB</td>
-		<td th:text="${interval.getUpperBound(0)}">99 UB</td>
+		<td th:text="${interval.getUpperBound(1).percent}">95 UB</td>
+		<td th:text="${interval.getUpperBound(0).percent}">99 UB</td>
 	</tr>
 </table>
 

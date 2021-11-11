@@ -74,14 +74,15 @@ public class BinomialStats {
 	}
 
 	public Range getRange(double confidence) {
-		int x1 = (int) Math.floor(dist.getNumericalMean());
-		int x2 = (int) Math.ceil(dist.getNumericalMean());
-		for (int x = 0; x <= x1; x++) {
-			// Distribution uses an exclusive lower bound
-			if (dist.cumulativeProbability(x1 - 1 - x, x2 + x) >= confidence) {
-				return new Range(x1 - x, x2 + x);
-			}
-		}
-		return new Range(0, (int) Math.round(dist.getNumericalMean() * 2));
+		return StatUtil.findConfidence(dist, confidence);
+//		int x1 = (int) Math.floor(dist.getNumericalMean());
+//		int x2 = (int) Math.ceil(dist.getNumericalMean());
+//		for (int x = 0; x <= x1; x++) {
+//			// Distribution uses an exclusive lower bound
+//			if (dist.cumulativeProbability(x1 - 1 - x, x2 + x) >= confidence) {
+//				return new Range(x1 - x, x2 + x);
+//			}
+//		}
+//		return new Range(0, (int) Math.round(dist.getNumericalMean() * 2));
 	}
 }
