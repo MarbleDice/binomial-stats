@@ -18,7 +18,7 @@ public class Application {
 	}
 
 	@Bean
-	public CommandLineRunner runIt() {
+	CommandLineRunner runIt() {
 		return args -> {
 			int n;
 			int x;
